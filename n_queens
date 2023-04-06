@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 18 18:20:29 2023
+
+@author: james
+"""
+
+
+# =============================================================================
+# # A utility function to check if a queen can
+# # be placed on board[row][col]. Note that this
+# # function is called when "col" queens are
+# # already placed in columns from 0 to col -1.
+# # So we need to check only left side for
+# # attacking queens
+# 
+# 
+# def isSafe(board, col, row):
+#     
+#     # check this row on left side:
+#     for i in range(col):
+#         if board[row][i] == 1:
+#             return False
+#         
+#     # check upper diagonal on left side
+#     for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+#         if board[i][j] == 1:
+#             return False
+#     
+#     # check lowe diagonal on left side:
+#     for i, j in zip(range(row, N, 1), range(col, -1, -1)):
+#         if board[i][j] == 1:
+#             return False
+#         
+#         
+# 
+# =============================================================================
+
+# class Solution:
+
+def solveNQueens(self, n):
+    if n < 1: return []
+    self.return = []
+    self.cols = set(); self.left_diagonal = set(); self.right_diagonal = set()
+    self.DFS(n, 0, [])
+    return self._generate_result(n)
+
+
+
+def DFS(self, n, row, cur_state):
+    # recursion terminator
+    
+    if row >= n:
+        self.return.append(cur_state)
+        return 
+    
+    for col in range(n):
+        if col in self.cols or row+col in self.left_diagonal or row-col in self.right_diagonal:
+            continue
+        
+        # update the flags
+        
+        self.cols.add(col)
+        self.left_diagonal.add(row+col)
+        self.right_diagonal.add(row-col)
+        
+        self.DFS(n, row+1, cur_state+[col])
+        
+        self.cols.remove(col)
+        self.left_diagonal.remove(row+col)
+        self.right_diagonal.remove(row-col)
